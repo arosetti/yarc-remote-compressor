@@ -1,0 +1,216 @@
+#include "file.h"
+
+int fileSize(const char *filename)
+{
+      struct stat file_info;
+      if (!stat (filename, &file_info))
+          return file_info.st_size;
+      return -1;
+}
+
+bool fileExists (const char * filename)
+{
+    struct stat file_info;
+    if (stat (filename, &file_info ) == 0)
+        return true;
+    return false;
+}
+
+int isDir(const char *path)
+{
+    struct stat stats;
+    return stat(path, &stats) == 0 && S_ISDIR(stats.st_mode);
+}
+
+
+bool isDirEmpty(const char *dir)
+{ 
+    struct dirent *pdir;
+    DIR *d;
+    char *path;
+
+    if(!dir)
+        return true;
+
+    path=(char *)malloc(sizeof(char)*1024);
+    d=opendir(dir);
+
+    while( (pdir=readdir(d)) ) 
+    {
+        if(strcmp(pdir->d_name,".") == 0)
+            continue;
+        if(strcmp(pdir->d_name,"..") == 0)
+            continue;
+
+        return false;
+    }
+
+    free(path);
+
+    return true;
+}
+
+void addSlash(char *s)
+{
+    if (s && (strlen(s) > 0) && (s[strlen(s)-1] != '/'))
+        strcat(s,"/");
+}
+
+void deltree(const char *dir)
+{
+    struct dirent *pdir;
+    struct stat st;
+    DIR *d;
+    char *path;
+
+    if(!dir)
+        return;
+
+    path =(char *)my_malloc(sizeof(char)*256);
+    d = opendir(dir);
+
+    while( (pdir=readdir(d)) ) 
+    {
+        if(strcmp(pdir->d_name,".") == 0)
+            continue;
+        if(strcmp(pdir->d_name,"..") == 0)
+            continue;
+
+        strcpy(path, dir);
+        if (path[strlen(path)-1] != '/') 
+            strcat(path, "/");
+        strcat(path, pdir->d_name);
+        if (!(lstat(path, &st)>=0)) 
+            continue;
+        if (st.st_mode&S_IFDIR)
+            deltree(path);
+        else if (st.st_mode&S_IFREG)
+            remove(path);        
+    }
+
+    free(path);
+    rmdir(dir);
+    return;
+}
+
+char *listFiles(const char *dir)
+{
+    struct dirent *pdir;
+    struct stat st;
+    DIR *d=opendir(dir);
+    int size=2048;
+    char *path=(char *)malloc(sizeof(char)*1024);
+    char *buffer=(char *)malloc(sizeof(char)*size);
+    if(!dir || !buffer)
+        return 0;
+
+    strcpy(buffer,"");
+
+    while((pdir=readdir(d))!=NULL) 
+    {
+        if(strcmp(pdir->d_name,".") == 0)
+            continue;
+        if(strcmp(pdir->d_name,"..") == 0)
+            continue;
+
+        strcpy(path, dir);
+        if (path[strlen(path)-1] != '/') 
+            strcat(path, "/");
+        strcat(path, pdir->d_name);
+        if (!(lstat(path, &st)>=0)) 
+            continue;
+
+        if( (strlen(pdir->d_name) + strlen(buffer) + 3) < size)
+        {
+            strcat(buffer,pdir->d_name);
+
+            if (st.st_mode&S_IFDIR)
+                strcat(buffer,"/");
+                
+            strcat(buffer," ");
+        }
+        else return buffer;
+    }
+    free(path);
+    return buffer;
+}
+
+void makeSubDir(char *dir)
+{
+    char *slash;
+    char *pdir=dir;
+    char segment[256];
+    int pos,loops=0;    
+
+    slash=strchr(dir,'/');
+    while (slash!=NULL)
+    {
+        pos=slash-dir+1;
+        slash=strchr(slash+1,'/');        
+        if (pos>1)
+            strncpy(segment,dir,pos-1);
+        segment[pos-1]=0;
+	    mkdir(segment, 0755);
+
+        pdir+=pos;
+        loops++;
+    }
+}
+
+char *sha1Digest(const char *filename)
+{   
+    SHA1Context sha; 
+    int fd,i,nread;
+    char fragment[9];
+    char *shabuffer=malloc(sizeof(char)*41);
+    char buffer[1024];
+
+    if (shabuffer == NULL) 
+        return 0;
+
+    SHA1Reset(&sha);
+
+    if ((fd=open(filename, O_RDONLY)) < 0) 
+    {
+        my_perror("open()",0); 
+        return 0; 
+    }
+
+    while ((nread=read(fd,buffer,1024)) > 0)
+        SHA1Input(&sha,(const unsigned char*)&buffer,nread);
+
+    close(fd);
+
+    if (!SHA1Result(&sha))
+        fprintf(stderr,"* sha: could not compute message digest for %s\n", \
+                filename);
+
+    else
+    {   
+        memset(shabuffer,'\0', sizeof(char));
+        for(i=0;i<5;i++)
+        {
+            sprintf(fragment,"%08X",sha.Message_Digest[i]);
+            strcat(shabuffer,fragment);
+        }
+    }
+    return shabuffer;
+}
+
+void printFileInfo(const char *filename,int size,const char *sha)
+{
+    if (!filename || !sha)
+        return;
+
+    printf("* filename: %s\n",filename);
+
+    printf("* filesize: ");
+    num2human(size);
+    printf("B\n");
+
+    printf("* sha1:     %s\n",sha);
+}
+
+
+
+

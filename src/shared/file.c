@@ -88,7 +88,7 @@ void deltree(const char *dir)
     }
 
     free(path);
-    //rdigestir(dir);
+    rmdir(dir);
     return;
 }
 

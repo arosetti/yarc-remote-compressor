@@ -4,10 +4,10 @@ src/shared/file.o: src/shared/file.c src/shared/file.h \
  /usr/include/gnu/stubs-64.h /usr/include/bits/posix_opt.h \
  /usr/include/bits/environments.h /usr/include/bits/types.h \
  /usr/include/bits/typesizes.h \
- /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stddef.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/4.5.3/include/stddef.h \
  /usr/include/bits/confname.h /usr/include/getopt.h /usr/include/stdio.h \
  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
- /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdarg.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/4.5.3/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
  /usr/include/stdlib.h /usr/include/bits/waitflags.h \
  /usr/include/bits/waitstatus.h /usr/include/endian.h \
@@ -23,11 +23,18 @@ src/shared/file.o: src/shared/file.c src/shared/file.h \
  /usr/include/sys/stat.h /usr/include/openssl/sha.h \
  /usr/include/openssl/e_os2.h /usr/include/openssl/opensslconf.h \
  src/shared/utility.h \
- /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdbool.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/4.5.3/include/stdbool.h \
  /usr/include/errno.h /usr/include/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- src/shared/../../config.h
+ /usr/include/sys/socket.h /usr/include/sys/uio.h /usr/include/bits/uio.h \
+ /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
+ /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
+ /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+ /usr/include/netinet/in.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/4.5.3/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/wchar.h /usr/include/bits/in.h \
+ /usr/include/arpa/inet.h src/shared/../../config.h
 
 src/shared/file.h:
 
@@ -51,7 +58,7 @@ src/shared/file.h:
 
 /usr/include/bits/typesizes.h:
 
-/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stddef.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.5.3/include/stddef.h:
 
 /usr/include/bits/confname.h:
 
@@ -65,7 +72,7 @@ src/shared/file.h:
 
 /usr/include/wchar.h:
 
-/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdarg.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.5.3/include/stdarg.h:
 
 /usr/include/bits/stdio_lim.h:
 
@@ -131,7 +138,7 @@ src/shared/file.h:
 
 src/shared/utility.h:
 
-/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdbool.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.5.3/include/stdbool.h:
 
 /usr/include/errno.h:
 
@@ -144,5 +151,35 @@ src/shared/utility.h:
 /usr/include/asm-generic/errno.h:
 
 /usr/include/asm-generic/errno-base.h:
+
+/usr/include/sys/socket.h:
+
+/usr/include/sys/uio.h:
+
+/usr/include/bits/uio.h:
+
+/usr/include/bits/socket.h:
+
+/usr/include/bits/sockaddr.h:
+
+/usr/include/asm/socket.h:
+
+/usr/include/asm-generic/socket.h:
+
+/usr/include/asm/sockios.h:
+
+/usr/include/asm-generic/sockios.h:
+
+/usr/include/netinet/in.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.5.3/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/bits/in.h:
+
+/usr/include/arpa/inet.h:
 
 src/shared/../../config.h:

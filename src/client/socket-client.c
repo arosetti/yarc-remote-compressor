@@ -2,6 +2,7 @@
 
 int clientSetup(clientConfig *c)
 {
+    errno=0;
     if ((c->sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
         perrorf("socket()");

@@ -12,8 +12,6 @@ void perrorf(const char *fmt, ...)
 
     va_start(ap, fmt);
     ret = vsnprintf(buffer, BSIZE, fmt, ap);
-    if (ret)
-        perrorf("vsnprintf");
     va_end(ap);
 
     if (strlen(buffer) > (BSIZE-3))
@@ -21,6 +19,13 @@ void perrorf(const char *fmt, ...)
 
     strcat(msg, buffer);
     perror(msg);
+}
+
+bool isValidIp(const char *ip_addr)
+{
+    struct sockaddr_in sa;
+    int result = inet_pton(AF_INET, ip_addr, &(sa.sin_addr));
+    return result != 0;
 }
 
 void *my_malloc(int size)

@@ -158,10 +158,11 @@ void makeSubDir(char *dir)
 
 char *shaDigest(const char *filename)
 {
-    SHA256_CTX context;
-    unsigned char digest[SHA256_DIGEST_LENGTH], *digest_ret;
-    int fd, nread;
-    char buffer[1024];
+    SHA_CTX context;
+    unsigned char digest[SHA_DIGEST_LENGTH];
+    char *digest_ret;
+    int fd, nread, i;
+    char buffer[1024], hex[3];
 
     if ((fd=open(filename, O_RDONLY)) < 0)
     {
@@ -169,19 +170,26 @@ char *shaDigest(const char *filename)
         return 0;
     }
 
-    SHA256_Init(&context);
+    SHA1_Init(&context);
 
     while ((nread=read(fd,buffer,1024)) > 0)
-        SHA256_Update(&context, (unsigned char*)buffer, nread);
+        SHA1_Update(&context, (unsigned char*)buffer, nread);
 
     close(fd);
 
-    if (!SHA256_Final(digest, &context))
+    if (!SHA1_Final(digest, &context))
         fprintf(stderr,"* sha: could not compute message digest for %s\n", \
                 filename);
 
-    digest_ret = (unsigned char*) my_malloc(sizeof(unsigned char) * SHA256_DIGEST_LENGTH);
-    strcpy((char *) digest, (char *) digest_ret);
+    digest_ret = (char*) my_malloc(sizeof(char) * 2 * SHA_DIGEST_LENGTH + 1);
+    memset(digest_ret,'\0', sizeof(char));
+    
+    for(i = 0; i < SHA_DIGEST_LENGTH; i++)
+    {
+        sprintf(hex, "%02x", digest[i]);
+        strcat(digest_ret, hex);
+    }
+
 
     return (char*) digest_ret;
 }

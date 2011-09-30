@@ -41,7 +41,7 @@ bool senddir(const char *dir, unsigned int *sock)
 
 bool pushfile(const char *filename, unsigned int *sock)
 {
-    char buffer[BLOCK], msg[256] = "";
+    char buffer[BLOCK], msg[MSGSIZE] = "";
     int  size = fileSize(filename);
     int  nread, nwrite, tot=size;
     int  file;
@@ -62,18 +62,20 @@ bool pushfile(const char *filename, unsigned int *sock)
     }
 
     printFileInfo(filename,size,sha);
-    sprintf(msg,"filesize:%d sha:%s",size,sha);
+    sprintf(msg,"filesize:%d sha:%s", size, sha);
     sendCommand(CMD_FILE_INFO, (char *)msg, sock);
 
     if (recvCommand(NULL, sock) != CMD_ACK)
     {
-        free(sha);
+        if(sha)
+            free(sha);
         return false;
     }
 
     if (size<=0)
     {
-        free(sha);
+        if(sha)
+            free(sha);
         return false;
     }
 
@@ -81,21 +83,23 @@ bool pushfile(const char *filename, unsigned int *sock)
 
     while(1)
     {
-	    memset(buffer, 0, BLOCK);
-	    if ((nread=read(file, buffer, BLOCK)) < 0 )
+        memset(buffer, 0, BLOCK);
+        if ((nread=read(file, buffer, BLOCK)) < 0 )
         {
-		    perrorf("read()",0);
+            perrorf("read()",0);
+            if (sha)
+                free(sha);
             return false;
-		}
+        }
         if ((nwrite=write(*sock, buffer, nread)) < 0)
-		    perrorf("write()",0);
-	    tot-=nwrite;
+            perrorf("write()",0);
+        tot-=nwrite;
 
         if (columns > 0)
             stepProgressBar(size-tot,columns,size);
 
-	    if (tot <= 0)
-		    break;
+        if (tot <= 0)
+            break;
     }
     gettimeofday(&stop,NULL);
 
@@ -112,7 +116,8 @@ bool pushfile(const char *filename, unsigned int *sock)
         printf("* result:   sending \"%s\" completed successfully\n",filename);
     }
 
-    free(sha);
+    if (sha)
+        free(sha);
     close(file);
     return true;
 }
@@ -171,21 +176,21 @@ bool pullfile(const char *filename, unsigned int *sock)
 
     while(1)
     {
-	    memset(buffer, 0, BLOCK);
-	    if ((nread=read(*sock, buffer, BLOCK)) < 0)
+        memset(buffer, 0, BLOCK);
+        if ((nread=read(*sock, buffer, BLOCK)) < 0)
         {
-		    perrorf("read()",0);
+            perrorf("read()",0);
             return false;
-        }	
+        }    
         if ((nwrite=write(file, buffer, nread)) < 0 )
-		    perrorf(" write()",0);
-	    tot+=nread;
+            perrorf(" write()",0);
+        tot+=nread;
 
         if (columns > 0)
             stepProgressBar(tot,10,size);
 
-	    if (tot == size)
-		    break;
+        if (tot == size)
+            break;
     }
 
     gettimeofday(&stop,NULL);
@@ -195,8 +200,8 @@ bool pullfile(const char *filename, unsigned int *sock)
     num2human((long double)(tot/difftime));
     printf("B/s\n");
 
-    sha=shaDigest(filename);
-    if (strcmp(sha,recv_sha) == 0)
+    sha = shaDigest(filename);
+    if (strcmp(sha, recv_sha) == 0)
     {
         printf("* result:   digest of %s is correct\n",filename);
         sendCommand(CMD_ACK, NULL, sock);

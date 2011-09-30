@@ -42,7 +42,7 @@ typedef bool(*handler)(char *, void *);
 
 typedef struct command
 {
-    commandtype type;	
+    commandtype type;
     char        *name;
     bool        needparam;
     handler     h;
@@ -50,7 +50,7 @@ typedef struct command
 
 typedef struct command_err
 {
-    commandtype type;	
+    commandtype type;
     char *err;
 } command_err;
 

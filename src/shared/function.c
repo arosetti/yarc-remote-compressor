@@ -10,14 +10,14 @@ bool senddir(const char *dir, unsigned int *sock)
     char *buffer=(char *)my_malloc(sizeof(char)*256);
 
 
-    if(!path)
+    if (!path)
         return false;
 
     while((pdir=readdir(d))!=NULL)
     {
-        if(strcmp(pdir->d_name,".") == 0)
+        if (strcmp(pdir->d_name,".") == 0)
             continue;
-        if(strcmp(pdir->d_name,"..") == 0)
+        if (strcmp(pdir->d_name,"..") == 0)
             continue;
 
         strcpy(path, dir);
@@ -53,7 +53,7 @@ bool pushfile(const char *filename, unsigned int *sock)
     struct timeval stop;
     double difftime=0;
 
-    if( (file = open(filename, O_RDONLY)) < 0)
+    if ( (file = open(filename, O_RDONLY)) < 0)
     {
         my_perror("open()",0);
         sendCommand(CMD_ABORT, NULL, sock);
@@ -65,13 +65,13 @@ bool pushfile(const char *filename, unsigned int *sock)
     sprintf(msg,"filesize:%d sha:%s",size,sha);
     sendCommand(CMD_FILE_INFO, (char *)msg, sock);
 
-    if(recvCommand(NULL, sock) != CMD_ACK)
+    if (recvCommand(NULL, sock) != CMD_ACK)
     {
         free(sha);
         return false;
     }
 
-    if(size<=0)
+    if (size<=0)
     {
         free(sha);
         return false;
@@ -91,7 +91,7 @@ bool pushfile(const char *filename, unsigned int *sock)
 		    my_perror("write()",0);
 	    tot-=nwrite;
 
-        if(columns > 0)
+        if (columns > 0)
             stepProgressBar(size-tot,columns,size);
 
 	    if (tot <= 0)
@@ -99,7 +99,7 @@ bool pushfile(const char *filename, unsigned int *sock)
     }
     gettimeofday(&stop,NULL);
 
-    if(recvCommand(NULL, sock) != CMD_ACK)
+    if (recvCommand(NULL, sock) != CMD_ACK)
         printf("* send of \"%s\" failed\n",filename);
     else
     {
@@ -131,18 +131,18 @@ bool pullfile(const char *filename, unsigned int *sock)
     double difftime=0;
 
 
-    if((file=open(filename, O_WRONLY | O_CREAT, mode)) < 0)
+    if ((file=open(filename, O_WRONLY | O_CREAT, mode)) < 0)
     {
         makeSubDir((char*)filename);
         remove(filename);
-        if((file=open(filename, O_WRONLY | O_CREAT, mode))<0)
+        if ((file=open(filename, O_WRONLY | O_CREAT, mode))<0)
         {
             my_perror("open()",0);
             return false;
         }
     }
 
-    if(recvCommand(buffer, sock) != CMD_FILE_INFO)
+    if (recvCommand(buffer, sock) != CMD_FILE_INFO)
     {
         printf("* Can't get \"%s\". Permission or I/O error \n\n",filename);
         close(file);
@@ -154,14 +154,14 @@ bool pullfile(const char *filename, unsigned int *sock)
 
     sendCommand(CMD_ACK, NULL, sock);
 
-    if(size==0)
+    if (size==0)
     {
         close(file);
         return true;
     }
-    if(size<0)
+    if (size<0)
     {
-        if(remove(filename) < 0)
+        if (remove(filename) < 0)
             my_perror( "remove()",0);
         close(file);
         return false;
@@ -181,7 +181,7 @@ bool pullfile(const char *filename, unsigned int *sock)
 		    my_perror(" write()",0);
 	    tot+=nread;
 
-        if(columns > 0)
+        if (columns > 0)
             stepProgressBar(tot,10,size);
 
 	    if (tot == size)
@@ -196,7 +196,7 @@ bool pullfile(const char *filename, unsigned int *sock)
     printf("B/s\n");
 
     sha=shaDigest(filename);
-    if(strcmp(sha,recv_sha) == 0)
+    if (strcmp(sha,recv_sha) == 0)
     {
         printf("* result:   digest of %s is correct\n",filename);
         sendCommand(CMD_ACK, NULL, sock);
@@ -209,7 +209,7 @@ bool pullfile(const char *filename, unsigned int *sock)
 
     printf("\n");
 
-    if(sha)
+    if (sha)
         free(sha);
 
     close(file);

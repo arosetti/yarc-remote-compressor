@@ -10,7 +10,7 @@ static void printClient(clientSlot *c, bool connected)
 {
     printf("* client ");
 
-    if(!connected)
+    if (!connected)
         printf("dis");
 
     printf("connected %s:%d \n", inet_ntoa(c->caddr.sin_addr),
@@ -83,7 +83,7 @@ void sessionLoop(clientSlot *c)
 
     while ( (type = recvCommand(param,&(c->sock))) > 0 )
     {
-        if( (param && strlen(param) == 0) || (param[0] == '\n') )
+        if ( (param && strlen(param) == 0) || (param[0] == '\n') )
             executeCommand(type, NULL, c);
         else
             executeCommand(type, param, c);

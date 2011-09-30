@@ -15,10 +15,10 @@ bool sendCommand(int type, char *param, unsigned int *sock)
     char *p = packetForge(type,param);
     int ret, len = HLEN;
 
-    if(param)
+    if (param)
         len+=strlen(param);
 
-    if( (ret = send(*sock, p, len, 0)) < 0 )
+    if ( (ret = send(*sock, p, len, 0)) < 0 )
     {
         my_perror("send()",0);
         free(p);
@@ -28,7 +28,7 @@ bool sendCommand(int type, char *param, unsigned int *sock)
 
     free(p);
 
-    if(ret != len)
+    if (ret != len)
         return false;
 
     return true;
@@ -43,7 +43,7 @@ int recvCommand(char *param, unsigned int *sock)
 
     header[0]=0;
 
-    if( (ret=recv(*sock, header, HLEN, 0)) < 0 )
+    if ( (ret=recv(*sock, header, HLEN, 0)) < 0 )
     {
         my_perror("recv()",0);
         close(*sock);
@@ -56,11 +56,11 @@ int recvCommand(char *param, unsigned int *sock)
     length  = length<<8;
     length |= (unsigned short)header[2];
 
-    if((type > 0) && (length > 0) && (length < MSGSIZE))
+    if ((type > 0) && (length > 0) && (length < MSGSIZE))
     {
         buffer = my_malloc(sizeof(char)*length+1);
 
-        if( (ret=recv(*sock, buffer, length, 0)) < 0 )
+        if ( (ret=recv(*sock, buffer, length, 0)) < 0 )
         {
             my_perror("recv()",0);
             close(*sock);
@@ -69,8 +69,8 @@ int recvCommand(char *param, unsigned int *sock)
         }
         buffer[ret]=0;
 
-        if(ret == length)
-            if(param && (strlen(buffer) > 0))
+        if (ret == length)
+            if (param && (strlen(buffer) > 0))
             {
                 strncpy(param, buffer ,length);
                 param[length]=0;
@@ -112,7 +112,7 @@ command *getCommandFromName(char *name, command *cs)
 	int i;
     for( i=0; cs[i].type != CMD_VOID; i++)
     {
-        if(strcmp(cs[i].name,name) == 0)
+        if (strcmp(cs[i].name,name) == 0)
             return &cs[i];
     }
     return &cs[i];
@@ -123,7 +123,7 @@ command *getCommandFromType(commandtype type, command *cs)
 	int i;
     for( i=0; cs[i].type != CMD_VOID; i++)
     {
-        if(cs[i].type == type)
+        if (cs[i].type == type)
             return &cs[i];
     }
     return &cs[i];
@@ -135,7 +135,7 @@ static command_err *searchErr(commandtype type)
 
     for(i=0;handled_err[i].type != CMD_VOID; i++)
     {
-        if(handled_err[i].type == type)
+        if (handled_err[i].type == type)
             return &handled_err[i];
     }
 
@@ -146,26 +146,26 @@ bool checkCommand(command *cmd, char *param)
 {
     command_err *c_err;
 
-    if(!cmd)
+    if (!cmd)
         return false;
 
-    if(cmd->type == CMD_VOID)
+    if (cmd->type == CMD_VOID)
     {
         printf("Command not found!\n");
         return false;
     }
 
-    if(!cmd->needparam && param != NULL)
+    if (!cmd->needparam && param != NULL)
     {
         printf("No param needed\n");
         return false;
     }
 
-    if(cmd->needparam && param == NULL)
+    if (cmd->needparam && param == NULL)
     {
         c_err = searchErr(cmd->type);
 
-        if(c_err && c_err->err)
+        if (c_err && c_err->err)
             printf("%s\n",c_err->err);
         else
             printf("unknown parameter error\n");

@@ -28,7 +28,7 @@ bool isDirEmpty(const char *dir)
     DIR *d;
     char *path;
 
-    if(!dir)
+    if (!dir)
         return true;
 
     path=(char *)malloc(sizeof(char)*1024);
@@ -36,9 +36,9 @@ bool isDirEmpty(const char *dir)
 
     while( (pdir=readdir(d)) )
     {
-        if(strcmp(pdir->d_name,".") == 0)
+        if (strcmp(pdir->d_name,".") == 0)
             continue;
-        if(strcmp(pdir->d_name,"..") == 0)
+        if (strcmp(pdir->d_name,"..") == 0)
             continue;
 
         return false;
@@ -62,7 +62,7 @@ void deltree(const char *dir)
     DIR *d;
     char *path;
 
-    if(!dir)
+    if (!dir)
         return;
 
     path =(char *)my_malloc(sizeof(char)*256);
@@ -70,9 +70,9 @@ void deltree(const char *dir)
 
     while( (pdir=readdir(d)) )
     {
-        if(strcmp(pdir->d_name,".") == 0)
+        if (strcmp(pdir->d_name,".") == 0)
             continue;
-        if(strcmp(pdir->d_name,"..") == 0)
+        if (strcmp(pdir->d_name,"..") == 0)
             continue;
 
         strcpy(path, dir);
@@ -100,16 +100,16 @@ char *listFiles(const char *dir)
     int size=2048;
     char *path=(char *)malloc(sizeof(char)*1024);
     char *buffer=(char *)malloc(sizeof(char)*size);
-    if(!dir || !buffer)
+    if (!dir || !buffer)
         return 0;
 
     strcpy(buffer,"");
 
     while((pdir=readdir(d))!=NULL)
     {
-        if(strcmp(pdir->d_name,".") == 0)
+        if (strcmp(pdir->d_name,".") == 0)
             continue;
-        if(strcmp(pdir->d_name,"..") == 0)
+        if (strcmp(pdir->d_name,"..") == 0)
             continue;
 
         strcpy(path, dir);
@@ -119,7 +119,7 @@ char *listFiles(const char *dir)
         if (!(lstat(path, &st)>=0))
             continue;
 
-        if( (strlen(pdir->d_name) + strlen(buffer) + 3) < size)
+        if ( (strlen(pdir->d_name) + strlen(buffer) + 3) < size)
         {
             strcat(buffer,pdir->d_name);
 

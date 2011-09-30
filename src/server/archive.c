@@ -165,7 +165,7 @@ int add_dir(const char *dir, archiveData *a)
 
     printf("scannind dir %s...\n",dir);
 
-    while((pdir=readdir(d))!=NULL)
+    while ((pdir=readdir(d))!=NULL)
     {
         if (strcmp(pdir->d_name,".") == 0)
             continue;

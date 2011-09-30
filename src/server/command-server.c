@@ -23,7 +23,7 @@ bool executeCommand(commandtype type, char *param, clientSlot *c)
 {
     command *cmd=getCommandFromType(type, handled_cmd);
 
-    if(cmd && c && checkCommand(cmd, param) && cmd->h)
+    if (cmd && c && checkCommand(cmd, param) && cmd->h)
     {
             executionInfo(cmd->name,c);
             return (*cmd->h)(param, (void *)c);

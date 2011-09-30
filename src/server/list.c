@@ -76,9 +76,9 @@ void delete_from(list *l, elem *node)
     node == l->head ? l->head = next : 0 ;
     node == l->tail ? l->tail = prev : 0 ;
 
-    if(node)
+    if (node)
     {
-        if(node->p)
+        if (node->p)
             free(node->p);
         free (node);
     }

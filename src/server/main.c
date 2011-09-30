@@ -6,10 +6,10 @@ void loadArgs(int argc, char** argv, serverConfig *conf)
 {
     conf->port=9000;
 
-    if(argc != 1 || argc !=2)
+    if (argc != 1 || argc !=2)
         printf("usage: %s <port>\n\n",argv[0]);
 
-    if(argc == 2)   
+    if (argc == 2)   
         conf->port=atoi(argv[1]);
 }
 

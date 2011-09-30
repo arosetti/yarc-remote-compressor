@@ -24,7 +24,7 @@ void commandLoop(clientConfig *c)
 
     printf("\n");
 
-    while(1)
+    while (1)
     {
         strcpy(buffer,"");
         printf("> ");
@@ -56,7 +56,7 @@ void commandLoop(clientConfig *c)
         if (param)
            free(param);
 
-        while(!getchar());
+        while (!getchar());
     }
 }
 
@@ -64,7 +64,7 @@ bool executeCommand(char *name, char *param, clientConfig *c)
 {
     command *cmd=getCommandFromName(name, handled_cmd);
 
-    if(cmd && c && checkCommand(cmd, param) && cmd->h)
+    if (cmd && c && checkCommand(cmd, param) && cmd->h)
             return (*cmd->h)(param,(void *)c);
 
     return false;

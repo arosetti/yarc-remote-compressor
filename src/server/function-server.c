@@ -38,7 +38,7 @@ bool configureName(char *param, void *conf)
         return false;
     }
 
-    if(strchr(param, ' ') != NULL)
+    if (strchr(param, ' ') != NULL)
     {
         printf("* sorry, archive name can't use spaces!\n");
         return false;
@@ -68,7 +68,7 @@ bool download(char *param, void *conf)
     clientSlot *c = (clientSlot *) conf;
     char buffer[MSGSIZE];
 
-    if(param[0] == '/')
+    if (param[0] == '/')
         param++;
 
     strcpy(buffer,c->dir);
@@ -185,12 +185,12 @@ bool listfiles(char *param, void *conf)
     clientSlot *c = (clientSlot *) conf;
     char *buffer=listFiles(c->dir);
 
-    if(strlen(buffer) == 0)
+    if (strlen(buffer) == 0)
         sendCommand(CMD_ABORT, NULL, &(c->sock));
     else
     sendCommand(CMD_ACK, buffer , &(c->sock));
 
-    if(buffer)
+    if (buffer)
         free(buffer);
 
     return true;

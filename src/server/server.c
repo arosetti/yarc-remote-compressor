@@ -17,10 +17,10 @@ int countSlots(serverConfig *s, bool count_full)
     {
         c=(clientSlot *)p->p;
 
-        if(count_full  && (c->sock != 0) )
+        if (count_full  && (c->sock != 0) )
             n++;
 
-        if(!count_full && (c->sock == 0))
+        if (!count_full && (c->sock == 0))
             n++;
 
         p = p->next;
@@ -45,13 +45,13 @@ int freeSlot(serverConfig *s, clientSlot *ckill, int maxfree)
 
     while (p)
     {
-        if(p->p == ckill)
+        if (p->p == ckill)
             ekill=p;
 
         p = p->next;
     }
 
-    if(!ekill)
+    if (!ekill)
     {
         printf("nonc'è\n");
         sem_post(&s->lsem);
@@ -64,12 +64,12 @@ int freeSlot(serverConfig *s, clientSlot *ckill, int maxfree)
     {
         c=(clientSlot *)p->p;
 
-        if(c->selected == false)
+        if (c->selected == false)
         {
-            if(c->sock == 0)
+            if (c->sock == 0)
                 n++;
 
-            if(n > maxfree && n > POOL_SIZE)
+            if (n > maxfree && n > POOL_SIZE)
             {
                 delete_from(s->clientlist, ekill);
                 sem_post(&s->lsem);
@@ -99,7 +99,7 @@ static void *findSlot(serverConfig *s)
     while (p)
     {
         c=(clientSlot *)p->p;
-        if(c)
+        if (c)
         {
             if (c->sock == 0)
             {

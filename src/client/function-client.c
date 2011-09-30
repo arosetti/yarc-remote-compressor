@@ -40,13 +40,13 @@ bool configureName(char *param, void *conf)
 {
     clientConfig *c=(clientConfig*)conf;
 
-    if( strlen(param) > 255 )
+    if ( strlen(param) > 255 )
     {
         printf("* archive name is too long\n");
             return false;
     }
 
-    if(strchr(param, ' ') != NULL)
+    if (strchr(param, ' ') != NULL)
     {
         printf("* sorry, archive name can't use spaces!\n");
         return false;

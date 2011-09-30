@@ -31,7 +31,8 @@ src/server/archive.o: src/server/archive.c src/server/archive.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed/syslimits.h \
  /usr/include/limits.h /usr/include/bits/posix2_lim.h \
  /usr/include/malloc.h src/server/../shared/file.h \
- src/server/../shared/sha1.h src/server/../shared/utility.h \
+ /usr/include/openssl/sha.h /usr/include/openssl/e_os2.h \
+ /usr/include/openssl/opensslconf.h src/server/../shared/utility.h \
  /usr/include/errno.h /usr/include/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
@@ -163,7 +164,11 @@ src/server/archive.h:
 
 src/server/../shared/file.h:
 
-src/server/../shared/sha1.h:
+/usr/include/openssl/sha.h:
+
+/usr/include/openssl/e_os2.h:
+
+/usr/include/openssl/opensslconf.h:
 
 src/server/../shared/utility.h:
 

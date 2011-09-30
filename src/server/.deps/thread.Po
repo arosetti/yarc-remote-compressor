@@ -51,7 +51,8 @@ src/server/thread.o: src/server/thread.c src/server/thread.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed/limits.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed/syslimits.h \
  /usr/include/limits.h /usr/include/bits/posix2_lim.h \
- src/server/../shared/file.h src/server/../shared/sha1.h \
+ src/server/../shared/file.h /usr/include/openssl/sha.h \
+ /usr/include/openssl/e_os2.h /usr/include/openssl/opensslconf.h \
  src/server/../shared/function.h src/server/../shared/file.h \
  src/server/../shared/time.h /usr/include/sys/time.h
 
@@ -263,7 +264,11 @@ src/server/archive.h:
 
 src/server/../shared/file.h:
 
-src/server/../shared/sha1.h:
+/usr/include/openssl/sha.h:
+
+/usr/include/openssl/e_os2.h:
+
+/usr/include/openssl/opensslconf.h:
 
 src/server/../shared/function.h:
 

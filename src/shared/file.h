@@ -9,8 +9,8 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <openssl/sha.h>
 
-#include "sha1.h"
 #include "utility.h"
 
 int  fileSize(const char *);
@@ -21,7 +21,7 @@ void addSlash(char *);
 void deltree(const char *);
 char *listFiles(const char *);
 void makeSubDir(char *);
-char *sha1Digest(const char *);
+char *shaDigest(const char *);
 void printFileInfo(const char *,int ,const char *);
 
 #endif

@@ -45,7 +45,7 @@ bool pushfile(const char *filename, unsigned int *sock)
     int  size = fileSize(filename);
     int  nread, nwrite, tot=size; 
     int  file;
-    char *sha1 = sha1Digest(filename);
+    char *sha = shaDigest(filename);
 
     int columns=0;
 
@@ -57,23 +57,23 @@ bool pushfile(const char *filename, unsigned int *sock)
     {
         my_perror("open()",0);
         sendCommand(CMD_ABORT, NULL, sock);
-        free(sha1);
+        free(sha);
         return false;
     }
 
-    printFileInfo(filename,size,sha1);
-    sprintf(msg,"filesize:%d sha1:%s",size,sha1);
+    printFileInfo(filename,size,sha);
+    sprintf(msg,"filesize:%d sha:%s",size,sha);
     sendCommand(CMD_FILE_INFO, (char *)msg, sock);
 
     if(recvCommand(NULL, sock) != CMD_ACK)
     {
-        free(sha1);
+        free(sha);
         return false;
     }
 
     if(size<=0)
     {
-        free(sha1);
+        free(sha);
         return false;
     }
 
@@ -112,7 +112,7 @@ bool pushfile(const char *filename, unsigned int *sock)
         printf("* result:   sending \"%s\" completed successfully\n",filename);
     }
 
-    free(sha1);
+    free(sha);
     close(file);
     return true;
 }
@@ -122,7 +122,7 @@ bool pullfile(const char *filename, unsigned int *sock)
     char buffer[BLOCK];   
     int size, nread=0, nwrite=0, tot=0, file;  
     mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-    char *sha1=NULL, recv_sha1[41] = "";
+    char *sha=NULL, recv_sha[41] = "";
 
     int columns=0;
    
@@ -149,8 +149,8 @@ bool pullfile(const char *filename, unsigned int *sock)
         return false;
     }
 
-    sscanf(buffer,"filesize:%d sha1:%s",&size,recv_sha1);
-    printFileInfo(filename,size,recv_sha1);
+    sscanf(buffer,"filesize:%d sha:%s",&size,recv_sha);
+    printFileInfo(filename,size,recv_sha);
 
     sendCommand(CMD_ACK, NULL, sock);
 
@@ -195,8 +195,8 @@ bool pullfile(const char *filename, unsigned int *sock)
     num2human((long double)(tot/difftime));
     printf("B/s\n");
 
-    sha1=sha1Digest(filename);
-    if(strcmp(sha1,recv_sha1) == 0)
+    sha=shaDigest(filename);
+    if(strcmp(sha,recv_sha) == 0)
     {
         printf("* result:   digest of %s is correct\n",filename);
         sendCommand(CMD_ACK, NULL, sock);
@@ -209,8 +209,8 @@ bool pullfile(const char *filename, unsigned int *sock)
 
     printf("\n");
 
-    if(sha1)
-        free(sha1);
+    if(sha)
+        free(sha);
         
     close(file);
     return true;

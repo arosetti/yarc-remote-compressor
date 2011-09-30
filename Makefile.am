@@ -5,7 +5,6 @@ bin_PROGRAMS = client server
 client_SOURCES = src/shared/function.h src/shared/function.c   \
                   src/shared/command.h src/shared/command.c \
 		  src/shared/file.c src/shared/file.h \
-                  src/shared/sha1.c src/shared/sha1.h \
 		  src/shared/utility.c src/shared/utility.h \
                   src/shared/time.c src/shared/time.h \
                   src/shared/version.h \
@@ -17,7 +16,6 @@ client_SOURCES = src/shared/function.h src/shared/function.c   \
 server_SOURCES = src/shared/function.h src/shared/function.c   \
                   src/shared/command.h src/shared/command.c \
 		  src/shared/file.c src/shared/file.h \
-                  src/shared/sha1.c src/shared/sha1.h \
 		  src/shared/utility.c src/shared/utility.h \
                   src/shared/time.c src/shared/time.h \
                   src/shared/version.h \

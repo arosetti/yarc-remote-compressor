@@ -11,7 +11,7 @@ AC_CHECK_FUNCS(gettimeofday chdir chmod getopt)
 
 AC_CHECK_LIB(pthread, pthread_create)
 AC_CHECK_LIB(archive, archive_write_open_filename)
-#AC_CHECK_LIB(ssl, )
+AC_CHECK_LIB(ssl, SHA256_Init)
 #AC_CHECK_LIB(crypto, )
 
 #profile

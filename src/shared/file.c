@@ -22,7 +22,6 @@ int isDir(const char *path)
     return stat(path, &stats) == 0 && S_ISDIR(stats.st_mode);
 }
 
-
 bool isDirEmpty(const char *dir)
 { 
     struct dirent *pdir;
@@ -89,7 +88,7 @@ void deltree(const char *dir)
     }
 
     free(path);
-    rmdir(dir);
+    //rdigestir(dir);
     return;
 }
 
@@ -146,55 +145,45 @@ void makeSubDir(char *dir)
     while (slash!=NULL)
     {
         pos=slash-dir+1;
-        slash=strchr(slash+1,'/');        
+        slash=strchr(slash+1,'/');
         if (pos>1)
             strncpy(segment,dir,pos-1);
         segment[pos-1]=0;
-	    mkdir(segment, 0755);
+        mkdir(segment, 0755);
 
         pdir+=pos;
         loops++;
     }
 }
 
-char *sha1Digest(const char *filename)
-{   
-    SHA1Context sha; 
+char *shaDigest(const char *filename)
+{
+    SHA256_CTX context;
+    unsigned char digest[SHA256_DIGEST_LENGTH], *digest_ret;
     int fd,i,nread;
-    char fragment[9];
-    char *shabuffer=malloc(sizeof(char)*41);
     char buffer[1024];
 
-    if (shabuffer == NULL) 
-        return 0;
-
-    SHA1Reset(&sha);
-
-    if ((fd=open(filename, O_RDONLY)) < 0) 
+    if ((fd=open(filename, O_RDONLY)) < 0)
     {
-        my_perror("open()",0); 
+        my_perror("open()",0);
         return 0; 
     }
 
+    SHA256_Init(&context);
+
     while ((nread=read(fd,buffer,1024)) > 0)
-        SHA1Input(&sha,(const unsigned char*)&buffer,nread);
+        SHA256_Update(&context, (unsigned char*)buffer, nread);
 
     close(fd);
 
-    if (!SHA1Result(&sha))
+    if (!SHA256_Final(digest, &context))
         fprintf(stderr,"* sha: could not compute message digest for %s\n", \
                 filename);
 
-    else
-    {   
-        memset(shabuffer,'\0', sizeof(char));
-        for(i=0;i<5;i++)
-        {
-            sprintf(fragment,"%08X",sha.Message_Digest[i]);
-            strcat(shabuffer,fragment);
-        }
-    }
-    return shabuffer;
+    digest_ret = (unsigned char*) my_malloc(sizeof(unsigned char) * SHA256_DIGEST_LENGTH);
+    strcpy(digest, digest_ret);
+
+    return digest_ret;
 }
 
 void printFileInfo(const char *filename,int size,const char *sha)

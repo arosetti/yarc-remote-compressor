@@ -28,7 +28,7 @@ int clientConnect(clientConfig *c)
         printf("* connection failed, %s:%d\n",c->host,c->port);
         my_perror("connect()",0);
     }
-    else 
+    else
     {
         c->connected=true;
         printf("* connected with %s:%d\n",c->host,c->port);

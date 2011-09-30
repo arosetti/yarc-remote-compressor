@@ -1,7 +1,7 @@
 #include "time.h"
 
 double timeval_diff(struct timeval *end_time, struct timeval *start_time)
-{ 
+{
   struct timeval diff;
 
   diff.tv_sec =end_time->tv_sec -start_time->tv_sec ;

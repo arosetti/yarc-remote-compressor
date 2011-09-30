@@ -31,7 +31,7 @@ src/server/main.o: src/server/main.c src/server/command-server.h \
  src/server/../shared/utility.h /usr/include/unistd.h \
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/getopt.h \
- src/server/../shared/version.h src/server/function-server.h \
+ src/server/../shared/../../config.h src/server/function-server.h \
  src/server/server.h /usr/include/pthread.h /usr/include/sched.h \
  /usr/include/bits/sched.h /usr/include/bits/setjmp.h \
  /usr/include/semaphore.h /usr/include/bits/semaphore.h \
@@ -184,7 +184,7 @@ src/server/../shared/utility.h:
 
 /usr/include/getopt.h:
 
-src/server/../shared/version.h:
+src/server/../shared/../../config.h:
 
 src/server/function-server.h:
 

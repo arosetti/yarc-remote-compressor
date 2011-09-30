@@ -5,7 +5,7 @@ command_err handled_err[] =
     {CMD_CONFIGURE_COMPRESSOR , "specify a valid compression algorithm type"},
     {CMD_CONFIGURE_NAME,        "specify remote archive file name" },
     {CMD_SEND,                  "specify file or directory name"},
-    {CMD_COMPRESS,              "specify destination directory of the archive"}, 
+    {CMD_COMPRESS,              "specify destination directory of the archive"},
     {CMD_REMOVE,                "specify file name to remove"},
     {CMD_VOID,                  NULL}
 };
@@ -53,7 +53,7 @@ int recvCommand(char *param, unsigned int *sock)
     type=header[0];
 
     length |= (unsigned short)header[1];
-    length  = length<<8;    
+    length  = length<<8;
     length |= (unsigned short)header[2];
 
     if((type > 0) && (length > 0) && (length < MSGSIZE))
@@ -77,7 +77,7 @@ int recvCommand(char *param, unsigned int *sock)
             }
         free(buffer);
     }
-   
+
     return type;
 }
 
@@ -85,12 +85,12 @@ char *packetForge(int type, const char *param)
 {
     char *packet;
     unsigned short plen = 0, temp;
-      
+
     if (param)
-        plen = strlen(param); 
+        plen = strlen(param);
 
     packet = my_malloc(sizeof(char)*(plen + HLEN + 1));
-     
+
     packet[0] = (unsigned char) type;
 
     temp=plen;
@@ -99,7 +99,7 @@ char *packetForge(int type, const char *param)
     temp = plen;
     temp = temp>>8;
     packet[1] = (char)temp;
-    packet[3] = 0;  
+    packet[3] = 0;
 
     if (param)
         strcpy(packet+3, param);
@@ -109,7 +109,7 @@ char *packetForge(int type, const char *param)
 
 command *getCommandFromName(char *name, command *cs)
 {
-	int i; 
+	int i;
     for( i=0; cs[i].type != CMD_VOID; i++)
     {
         if(strcmp(cs[i].name,name) == 0)
@@ -120,7 +120,7 @@ command *getCommandFromName(char *name, command *cs)
 
 command *getCommandFromType(commandtype type, command *cs)
 {
-	int i; 
+	int i;
     for( i=0; cs[i].type != CMD_VOID; i++)
     {
         if(cs[i].type == type)

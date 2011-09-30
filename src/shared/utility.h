@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <errno.h>
 
-#include "version.h"
+#include "../../config.h"
 
 void *my_malloc(int);
 void my_perror(char*, bool);

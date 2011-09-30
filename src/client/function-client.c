@@ -4,20 +4,20 @@ bool help(char *param, void *conf)
 {
     clientConfig *c=(clientConfig*)conf;
 
-	printf("show-configuration           : shows remote configuration\n");
-	printf("configure-name        <name> : set archive name\n");
-	printf("configure-compressor  <type> : set compression algorithm\n");
-	printf("compress              <path> : create archive to specified path\n");
-	printf("send                  <file> : send file to server\n");
-	printf("remove                <file> : remove uploaded file from server\n");
-	printf("list                         : list uploaded files\n");
-	printf("ping                         : ping server\n");
-	printf("connect                      : connect to server\n");
-	printf("quit                         : exit from program\n\n");
-	printf("available compressors: none gnuzip bzip2 xz zip\n");
+    printf("show-configuration           : shows remote configuration\n");
+    printf("configure-name        <name> : set archive name\n");
+    printf("configure-compressor  <type> : set compression algorithm\n");
+    printf("compress              <path> : create archive to specified path\n");
+    printf("send                  <file> : send file to server\n");
+    printf("remove                <file> : remove uploaded file from server\n");
+    printf("list                         : list uploaded files\n");
+    printf("ping                         : ping server\n");
+    printf("connect                      : connect to server\n");
+    printf("quit                         : exit from program\n\n");
+    printf("available compressors: none gnuzip bzip2 xz zip\n");
 
-	sendCommand(CMD_HELP, NULL, &(c->sock));
-	return true;
+    sendCommand(CMD_HELP, NULL, &(c->sock));
+    return true;
 }
 
 bool configureCompressor(char *param, void *conf)
@@ -43,7 +43,7 @@ bool configureName(char *param, void *conf)
     if( strlen(param) > 255 )
     {
         printf("* archive name is too long\n");
-            return false;    
+            return false;
     }
 
     if(strchr(param, ' ') != NULL)
@@ -51,7 +51,7 @@ bool configureName(char *param, void *conf)
         printf("* sorry, archive name can't use spaces!\n");
         return false;
     }
-        
+
     sendCommand(CMD_CONFIGURE_NAME, (char*)param, &(c->sock));
 
     if (recvCommand(0, &(c->sock)) == CMD_ACK)
@@ -68,7 +68,7 @@ bool configureName(char *param, void *conf)
 bool showConfiguration(char *param, void *conf)
 {
     clientConfig *c=(clientConfig*)conf;
-    char buffer[MSGSIZE];   
+    char buffer[MSGSIZE];
     char name[256];
     char type[16];
 
@@ -82,7 +82,7 @@ bool showConfiguration(char *param, void *conf)
     }
     else
         return false;
-        
+
     return true;
 }
 
@@ -90,7 +90,7 @@ bool upload(char *param, void *conf)
 {
     clientConfig *c=(clientConfig*)conf;
     if (!isDir(param))
-    {   
+    {
         sendCommand(CMD_SEND, (char *)param, &(c->sock));
         return pushfile(param, &(c->sock));
     }
@@ -112,7 +112,7 @@ bool compress(char *param, void *conf)
 
     /* direxists -> makesubdir*/
 
-    for(i=0;i<MSGSIZE;i++) 
+    for(i=0;i<MSGSIZE;i++)
         buffer[i]=0;
 
     sendCommand(CMD_COMPRESS, NULL, &(c->sock));
@@ -135,13 +135,13 @@ bool compress(char *param, void *conf)
     printf("* moving file \"%s\" to %s\n",buffer,archive);
     if (rename(buffer,archive)<0)
         my_perror("rename()",0);
-        
+
     return true;
 }
 
 bool ping(char *param, void *conf)
 {
-    clientConfig *c=(clientConfig*)conf;   
+    clientConfig *c=(clientConfig*)conf;
     sendCommand(CMD_PING, NULL , &(c->sock));
 
     if ( recvCommand(0, &(c->sock)) == CMD_PING)
@@ -179,7 +179,7 @@ bool listfiles(char *param, void *conf)
 
     if (recvCommand(buffer, &(c->sock)) == CMD_ACK)
         printf("* uploaded files:\n%s\n",buffer);
-    else 
+    else
         printf("* remote folder is empty!\n");
 
     return true;
@@ -190,7 +190,7 @@ bool quit(char *param, void *conf)
     clientConfig *c=(clientConfig*)conf;
     if (close(c->sock) < 0)
         my_perror("close()",1);
-    else 
+    else
         printf("* socket closed, bye...\n");
 
     exit(0);

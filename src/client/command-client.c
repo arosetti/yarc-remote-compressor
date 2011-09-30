@@ -1,6 +1,6 @@
 #include "command-client.h"
 
-static command handled_cmd[] = 
+static command handled_cmd[] =
 {
 {CMD_HELP,                 "help",                 0, help},
 {CMD_QUIT,                 "quit",                 0, quit},
@@ -26,7 +26,7 @@ void commandLoop(clientConfig *c)
 
     while(1)
     {
-        strcpy(buffer,"");  
+        strcpy(buffer,"");
         printf("> ");
         scanf("%1024[^\t\n]",buffer);
         if (strlen(buffer) < MSGSIZE)
@@ -35,11 +35,11 @@ void commandLoop(clientConfig *c)
             param = (char*) my_malloc(sizeof(char) * MSGSIZE);
 
             strcpy(name,"");
-            strcpy(param,"");  
+            strcpy(param,"");
             sscanf(buffer,"%s %[^\t\n]",name,param);
             cleanTailSpaces(param);
 
-            if (strlen(param) == 0) 
+            if (strlen(param) == 0)
             {
                 free(param);
                 param=NULL;

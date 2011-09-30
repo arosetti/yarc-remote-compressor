@@ -3,7 +3,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <semaphore.h> 
+#include <semaphore.h>
 
 #ifndef THREAD_H
 #define THREAD_H

@@ -5,11 +5,9 @@
 
 #ifdef linux
     #include <malloc.h>
-#else 
+#else
     #include <stdlib.h>
 #endif
-
-
 
 typedef struct elem elem;
 struct elem
@@ -18,7 +16,6 @@ struct elem
     elem *next;
     elem *prev;
 };
-
 
 typedef struct list {
     elem *head;

@@ -1,6 +1,6 @@
 #include "command-server.h"
 
-command handled_cmd[] = 
+command handled_cmd[] =
 {
     {CMD_HELP,                 "help",                 0, dummy,},
     {CMD_CONFIGURE_COMPRESSOR, "configure-compressor", 1, configureCompressor},

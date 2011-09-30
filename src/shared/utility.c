@@ -7,7 +7,7 @@ void my_perror(char *perror_str, bool die)
     if(errno == 0)
         return;
 
-    if(strlen(perror_str) > 128) 
+    if(strlen(perror_str) > 128)
         return;
 
     strcat(msg, perror_str);
@@ -26,7 +26,7 @@ void *my_malloc(int size)
 
     if(!p)
         my_perror("malloc()",1);
-            
+
     return p;
 }
 
@@ -38,12 +38,12 @@ void cleanTailSpaces(char *s) /* ORRIILE */
         return;
 
     while(1)
-    {        
+    {
         i=strlen(s)-1;
         if(i < 0)
             break;
         if(s[i] == ' ' || s[i] == '\t')
-        {    
+        {
             s[i]=0;
             continue;
         }
@@ -52,7 +52,7 @@ void cleanTailSpaces(char *s) /* ORRIILE */
 }
 
 void stepProgressBar(long i,int steps,long elements)
-{    
+{
     long j,k,d=elements/steps;
 
     if(i>elements)
@@ -61,9 +61,9 @@ void stepProgressBar(long i,int steps,long elements)
         i=0;
 
     printf("[");
-    for(j=0;j<=i/d;j++) 
+    for(j=0;j<=i/d;j++)
         printf("=");
-    for(k=0;k<=(steps-j);k++) 
+    for(k=0;k<=(steps-j);k++)
         printf(" ");
     printf("] %d%%", (int)(100*i/elements));
     if(i!=elements)

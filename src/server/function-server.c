@@ -9,8 +9,8 @@ bool configureCompressor(char *param, void *conf)
 
     if (strlen(param) < 16)
         while(arctypes[i])
-        {   
-            if (strcmp((char*)param,(char*)arctypes[i]) == 0) 
+        {
+            if (strcmp((char*)param,(char*)arctypes[i]) == 0)
             {
                 sendCommand(CMD_ACK, NULL, &(c->sock));
                 strcpy(c->arctype,param);
@@ -57,7 +57,7 @@ bool showConfiguration(char *param, void *conf)
     clientSlot *c = (clientSlot *) conf;
     char buffer[MSGSIZE];
 
-    sprintf(buffer,"%s / %s",c->arcname,c->arctype);    
+    sprintf(buffer,"%s / %s",c->arcname,c->arctype);
     sendCommand(CMD_SHOW_CONFIGURATION, buffer, &(c->sock));
 
     return true;
@@ -82,8 +82,8 @@ bool compress(char *param, void *conf)
 {
     clientSlot *c = (clientSlot *) conf;
     archiveData *a=NULL;
-    bool added=false; 
-    char buffer[MSGSIZE]; 
+    bool added=false;
+    char buffer[MSGSIZE];
 
     strcpy(buffer,c->dir);
     if (buffer[strlen(buffer)-1] != '/')
@@ -130,7 +130,7 @@ bool compress(char *param, void *conf)
 
     if (recvCommand(NULL, &(c->sock)) == CMD_ACK)
     {
-        pushfile(a->name,&(c->sock));   
+        pushfile(a->name,&(c->sock));
     }
 
     remove(a->name);
@@ -150,7 +150,7 @@ bool pong(char *param, void *conf)
     clientSlot *c = (clientSlot *) conf;
     sendCommand(CMD_PING, NULL, &(c->sock));
     printf("* sending ping reply\n\n");
-        
+
     return true;
 }
 
@@ -176,7 +176,7 @@ bool removefile(char *param, void *conf)
     }
 
     free(buffer);
-        
+
     return 1;
 }
 
@@ -192,7 +192,7 @@ bool listfiles(char *param, void *conf)
 
     if(buffer)
         free(buffer);
-        
+
     return true;
 }
 

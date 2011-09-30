@@ -9,7 +9,7 @@ void loadArgs(int argc, char** argv, serverConfig *conf)
     if(argc != 1 || argc !=2)
         printf("usage: %s <port>\n\n",argv[0]);
 
-    if(argc == 2)       
+    if(argc == 2)   
         conf->port=atoi(argv[1]);
 }
 
@@ -24,7 +24,7 @@ void printConfig(serverConfig *conf)
 void welcome()
 {
     printf("YARC - yet another remote compressor\n");
-    printf("server version %s\n------------------------------\n",VERSION);
+    printf("server version %s\n------------------------------\n", PACKAGE_VERSION);
 }
 
 int main(int argc,char** argv)
@@ -36,7 +36,7 @@ int main(int argc,char** argv)
     loadArgs(argc,argv,&s);
     printConfig(&s);
 
-    if (getuid()!=0 && s.port<=1024) 
+    if (getuid()!=0 && s.port<=1024)
     {
         printf("root privileges required: using port <=1024\n");
         exit(1);

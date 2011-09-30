@@ -23,7 +23,7 @@ int isDir(const char *path)
 }
 
 bool isDirEmpty(const char *dir)
-{ 
+{
     struct dirent *pdir;
     DIR *d;
     char *path;
@@ -34,7 +34,7 @@ bool isDirEmpty(const char *dir)
     path=(char *)malloc(sizeof(char)*1024);
     d=opendir(dir);
 
-    while( (pdir=readdir(d)) ) 
+    while( (pdir=readdir(d)) )
     {
         if(strcmp(pdir->d_name,".") == 0)
             continue;
@@ -68,7 +68,7 @@ void deltree(const char *dir)
     path =(char *)my_malloc(sizeof(char)*256);
     d = opendir(dir);
 
-    while( (pdir=readdir(d)) ) 
+    while( (pdir=readdir(d)) )
     {
         if(strcmp(pdir->d_name,".") == 0)
             continue;
@@ -76,15 +76,15 @@ void deltree(const char *dir)
             continue;
 
         strcpy(path, dir);
-        if (path[strlen(path)-1] != '/') 
+        if (path[strlen(path)-1] != '/')
             strcat(path, "/");
         strcat(path, pdir->d_name);
-        if (!(lstat(path, &st)>=0)) 
+        if (!(lstat(path, &st)>=0))
             continue;
         if (st.st_mode&S_IFDIR)
             deltree(path);
         else if (st.st_mode&S_IFREG)
-            remove(path);        
+            remove(path);
     }
 
     free(path);
@@ -105,7 +105,7 @@ char *listFiles(const char *dir)
 
     strcpy(buffer,"");
 
-    while((pdir=readdir(d))!=NULL) 
+    while((pdir=readdir(d))!=NULL)
     {
         if(strcmp(pdir->d_name,".") == 0)
             continue;
@@ -113,10 +113,10 @@ char *listFiles(const char *dir)
             continue;
 
         strcpy(path, dir);
-        if (path[strlen(path)-1] != '/') 
+        if (path[strlen(path)-1] != '/')
             strcat(path, "/");
         strcat(path, pdir->d_name);
-        if (!(lstat(path, &st)>=0)) 
+        if (!(lstat(path, &st)>=0))
             continue;
 
         if( (strlen(pdir->d_name) + strlen(buffer) + 3) < size)
@@ -125,7 +125,7 @@ char *listFiles(const char *dir)
 
             if (st.st_mode&S_IFDIR)
                 strcat(buffer,"/");
-                
+
             strcat(buffer," ");
         }
         else return buffer;
@@ -139,7 +139,7 @@ void makeSubDir(char *dir)
     char *slash;
     char *pdir=dir;
     char segment[256];
-    int pos,loops=0;    
+    int pos,loops=0;
 
     slash=strchr(dir,'/');
     while (slash!=NULL)
@@ -166,7 +166,7 @@ char *shaDigest(const char *filename)
     if ((fd=open(filename, O_RDONLY)) < 0)
     {
         my_perror("open()",0);
-        return 0; 
+        return 0;
     }
 
     SHA256_Init(&context);

@@ -39,7 +39,7 @@ src/server/thread.o: src/server/thread.c src/server/thread.h \
  /usr/include/arpa/inet.h /usr/include/errno.h /usr/include/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- src/server/../shared/utility.h src/server/../shared/version.h \
+ src/server/../shared/utility.h src/server/../shared/../../config.h \
  src/server/function-server.h src/server/server.h \
  src/server/../shared/utility.h src/server/list.h /usr/include/malloc.h \
  src/server/archive.h /usr/include/sys/stat.h /usr/include/bits/stat.h \
@@ -216,7 +216,7 @@ src/server/../shared/command.h:
 
 src/server/../shared/utility.h:
 
-src/server/../shared/version.h:
+src/server/../shared/../../config.h:
 
 src/server/function-server.h:
 

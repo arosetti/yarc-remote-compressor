@@ -29,7 +29,7 @@ void printConfig(clientConfig *conf)
 void welcome()
 {
     printf("YARC - yet another remote compressor\n");
-    printf("client version %s\n------------------------------\n",VERSION);
+    printf("client version %s\n------------------------------\n", PACKAGE_VERSION);
     printf("type \"help\" to see command list\n");
     printf("max message length is %d\n\n",MSGSIZE);
 }
@@ -37,7 +37,7 @@ void welcome()
 int main(int argc,char** argv)
 {
     clientConfig c;
-	/*signal(SIGINT, sigintHandler);*/
+    /*signal(SIGINT, sigintHandler);*/
     welcome();
 
     loadArgs(argc,argv,&c);

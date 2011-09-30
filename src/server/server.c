@@ -13,16 +13,16 @@ int countSlots(serverConfig *s, bool count_full)
     l=s->clientlist;
     p = l->head;
 
-    while (p) 
+    while (p)
     {
         c=(clientSlot *)p->p;
-        
+
         if(count_full  && (c->sock != 0) )
             n++;
-            
+
         if(!count_full && (c->sock == 0))
             n++;
-            
+
         p = p->next;
     }
 
@@ -35,7 +35,7 @@ int freeSlot(serverConfig *s, clientSlot *ckill, int maxfree)
 {
     list *l;
     elem* p, *ekill=NULL;
-    clientSlot *c=NULL;    
+    clientSlot *c=NULL;
     int n=0;
 
     sem_wait(&s->lsem);
@@ -43,7 +43,7 @@ int freeSlot(serverConfig *s, clientSlot *ckill, int maxfree)
     l=s->clientlist;
     p = l->head;
 
-    while (p) 
+    while (p)
     {
         if(p->p == ckill)
             ekill=p;
@@ -60,7 +60,7 @@ int freeSlot(serverConfig *s, clientSlot *ckill, int maxfree)
 
     p = l->head;
 
-    while (p) 
+    while (p)
     {
         c=(clientSlot *)p->p;
 
@@ -70,7 +70,7 @@ int freeSlot(serverConfig *s, clientSlot *ckill, int maxfree)
                 n++;
 
             if(n > maxfree && n > POOL_SIZE)
-            {   
+            {
                 delete_from(s->clientlist, ekill);
                 sem_post(&s->lsem);
 
@@ -89,14 +89,14 @@ static void *findSlot(serverConfig *s)
 {
     list *l;
     elem* p;
-    clientSlot *c = NULL;    
+    clientSlot *c = NULL;
 
     sem_wait(&s->lsem);
 
     l = s->clientlist;
     p = l->head;
 
-    while (p) 
+    while (p)
     {
         c=(clientSlot *)p->p;
         if(c)
@@ -124,16 +124,16 @@ void serverLoop(serverConfig *s)
     clientSlot *c;
 
     while (1)
-    {   
+    {
         if (countSlots(s,0) <= MAX_POOL_SIZE)
         {
             if ((tmp_sock = accept(s->sock, (struct sockaddr *) &tmp_addr, \
-                                  (socklen_t*) &len)) >= 0) 
-            {   
-                
+                                  (socklen_t*) &len)) >= 0)
+            {
+
                 while ( (c = findSlot(s)) == 0 )
                     initThread(s);
-                    
+
                 c->sock=tmp_sock;
                 c->caddr=tmp_addr;
                 sem_post(&c->sem);

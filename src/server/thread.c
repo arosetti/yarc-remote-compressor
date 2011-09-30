@@ -3,7 +3,7 @@
 static void printSlots(serverConfig *s)
 {
         int sfull=countSlots(s,1), sfree=countSlots(s,0), tot=sfull+sfree;
-		printf("* active slots %d/%d\n", sfull,tot);
+        printf("* active slots %d/%d\n", sfull,tot);
 }
 
 static void printClient(clientSlot *c, bool connected)
@@ -13,7 +13,7 @@ static void printClient(clientSlot *c, bool connected)
     if(!connected)
         printf("dis");
 
-    printf("connected %s:%d \n", inet_ntoa(c->caddr.sin_addr), 
+    printf("connected %s:%d \n", inet_ntoa(c->caddr.sin_addr),
             ntohs(c->caddr.sin_port));
 }
 
@@ -21,56 +21,56 @@ void initThread(serverConfig *s)
 {
     threadArg *a = my_malloc(sizeof(threadArg));
     clientSlot *p = my_malloc(sizeof(clientSlot));
-	memset(p, 0, sizeof(clientSlot));
-	sem_init(&p->sem,0,0);  
-	sem_wait(&s->lsem);
+    memset(p, 0, sizeof(clientSlot));
+    sem_init(&p->sem,0,0);
+    sem_wait(&s->lsem);
     p->selected=false;
 
     insert_back(s->clientlist,(void *)p);
-	sem_post(&s->lsem);
-	
-	a->srv=s;
-	a->cli=p;
-	
-    pthread_create(&p->tid, NULL, clientThread,(void*)a);	
-	printf("* new client thread created \n");
+    sem_post(&s->lsem);
+
+    a->srv=s;
+    a->cli=p;
+
+    pthread_create(&p->tid, NULL, clientThread,(void*)a);
+    printf("* new client thread created \n");
     printSlots(s);
 }
 
 void initPool(serverConfig *s)
-{   
+{
     int i;
 
-	if ( sem_init(&s->lsem, 0, 1) < 0 )
-		my_perror("sem_init()",1); 
+    if ( sem_init(&s->lsem, 0, 1) < 0 )
+        my_perror("sem_init()",1);
 
-	for (i=0; i<POOL_SIZE; i++) 
-		initThread(s);
+    for (i=0; i<POOL_SIZE; i++)
+        initThread(s);
 
-	printf("* pool of %d threads ready... (max %d)\n\n", POOL_SIZE, MAX_POOL_SIZE); 
+    printf("* pool of %d threads ready... (max %d)\n\n", POOL_SIZE, MAX_POOL_SIZE);
 }
-	
+
 void initSession(clientSlot *c)
 {
-	strcpy(c->arcname,"Archive"); 
-	strcpy(c->arctype,"gnuzip"); 
+    strcpy(c->arcname,"Archive");
+    strcpy(c->arctype,"gnuzip");
 
     strcpy(c->host,inet_ntoa(c->caddr.sin_addr));
     c->port=ntohs(c->caddr.sin_port);
 
-	sprintf(c->dir, "%u", (unsigned int)pthread_self()); 
-	if ((c->fd_dir=mkdir(c->dir, 0755)) < 0 )
-		my_perror("mkdir()",0); 
+    sprintf(c->dir, "%u", (unsigned int)pthread_self());
+    if ((c->fd_dir=mkdir(c->dir, 0755)) < 0 )
+        my_perror("mkdir()",0);
 
-    if (opendir(c->dir) == NULL) 
-        my_perror("opendir()",1); 
+    if (opendir(c->dir) == NULL)
+        my_perror("opendir()",1);
 }
 
 void closeSession(clientSlot *c)
 {
-	deltree(c->dir);
-    close(c->sock); 
-    c->sock=0;    
+    deltree(c->dir);
+    close(c->sock);
+    c->sock=0;
 }
 
 void sessionLoop(clientSlot *c)
@@ -85,7 +85,7 @@ void sessionLoop(clientSlot *c)
     {
         if( (param && strlen(param) == 0) || (param[0] == '\n') )
             executeCommand(type, NULL, c);
-        else 
+        else
             executeCommand(type, param, c);
 
         for(i=0;i<MSGSIZE;i++)
@@ -100,7 +100,7 @@ void sessionLoop(clientSlot *c)
 
 
 void *clientThread(void *arg)
-{   
+{
     threadArg *a = (threadArg*)arg;
     serverConfig *s = a->srv;
     clientSlot *c   = a->cli;
@@ -109,7 +109,7 @@ void *clientThread(void *arg)
 
     while(1)
     {
-		sem_wait(&c->sem); 
+        sem_wait(&c->sem);
         c->selected=false;
 
         printClient(c,1);
@@ -117,7 +117,7 @@ void *clientThread(void *arg)
 
         initSession(c);
         sessionLoop(c);
-        closeSession(c);  
+        closeSession(c);
 
         printClient(c,0);
         printSlots(s);
@@ -130,6 +130,6 @@ void *clientThread(void *arg)
 
         }
     }
- 
+
     pthread_exit(NULL);
 }

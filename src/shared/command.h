@@ -16,7 +16,7 @@
 #define MSGSIZE 1024
 
 typedef enum commandtype
-{   
+{
     CMD_VOID=0,
     CMD_QUIT,
     CMD_HELP,
@@ -36,16 +36,16 @@ typedef enum commandtype
 
 typedef bool(*handler)(char *, void *);
 
-typedef struct command 
-{ 
+typedef struct command
+{
     commandtype type;	
     char        *name;
     bool        needparam;
     handler     h;
 } command;
 
-typedef struct command_err 
-{ 
+typedef struct command_err
+{
     commandtype type;	
     char *err;
 } command_err;

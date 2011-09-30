@@ -36,7 +36,7 @@ src/server/archive.o: src/server/archive.c src/server/archive.h \
  /usr/include/errno.h /usr/include/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- src/server/../shared/version.h
+ src/server/../shared/../../config.h
 
 src/server/archive.h:
 
@@ -184,4 +184,4 @@ src/server/../shared/utility.h:
 
 /usr/include/asm-generic/errno-base.h:
 
-src/server/../shared/version.h:
+src/server/../shared/../../config.h:

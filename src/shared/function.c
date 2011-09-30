@@ -2,18 +2,18 @@
 #include "command.h"
 
 bool senddir(const char *dir, unsigned int *sock)
-{ 
+{
     struct dirent *pdir;
     struct stat st;
     DIR *d=opendir(dir);
     char *path=(char *)my_malloc(sizeof(char)*256);
-    char *buffer=(char *)my_malloc(sizeof(char)*256); 
+    char *buffer=(char *)my_malloc(sizeof(char)*256);
 
 
     if(!path)
         return false;
 
-    while((pdir=readdir(d))!=NULL) 
+    while((pdir=readdir(d))!=NULL)
     {
         if(strcmp(pdir->d_name,".") == 0)
             continue;
@@ -23,7 +23,7 @@ bool senddir(const char *dir, unsigned int *sock)
         strcpy(path, dir);
         addSlash(path);
         strcat(path, pdir->d_name);
-        if (!(lstat(path, &st)>=0)) 
+        if (!(lstat(path, &st)>=0))
             continue;
         if (st.st_mode&S_IFREG)
         {
@@ -31,19 +31,19 @@ bool senddir(const char *dir, unsigned int *sock)
             pushfile(path, sock);
         }
         else if (st.st_mode&S_IFDIR)
-            senddir(path, sock);        
-    }   
-  
+            senddir(path, sock);
+    }
+
     free(buffer);
     free(path);
     return true;
 }
 
-bool pushfile(const char *filename, unsigned int *sock) 
-{ 
-    char buffer[BLOCK], msg[256] = "";   
+bool pushfile(const char *filename, unsigned int *sock)
+{
+    char buffer[BLOCK], msg[256] = "";
     int  size = fileSize(filename);
-    int  nread, nwrite, tot=size; 
+    int  nread, nwrite, tot=size;
     int  file;
     char *sha = shaDigest(filename);
 
@@ -79,23 +79,23 @@ bool pushfile(const char *filename, unsigned int *sock)
 
     gettimeofday(&start,NULL);
 
-    while(1) 
+    while(1)
     {
-	    memset(buffer, 0, BLOCK); 
+	    memset(buffer, 0, BLOCK);
 	    if ((nread=read(file, buffer, BLOCK)) < 0 )
         {
 		    my_perror("read()",0);
             return false;
 		}
-        if ((nwrite=write(*sock, buffer, nread)) < 0) 
+        if ((nwrite=write(*sock, buffer, nread)) < 0)
 		    my_perror("write()",0);
 	    tot-=nwrite;
 
         if(columns > 0)
             stepProgressBar(size-tot,columns,size);
 
-	    if (tot <= 0) 
-		    break; 
+	    if (tot <= 0)
+		    break;
     }
     gettimeofday(&stop,NULL);
 
@@ -117,15 +117,15 @@ bool pushfile(const char *filename, unsigned int *sock)
     return true;
 }
 
-bool pullfile(const char *filename, unsigned int *sock) 
+bool pullfile(const char *filename, unsigned int *sock)
 {
-    char buffer[BLOCK];   
-    int size, nread=0, nwrite=0, tot=0, file;  
+    char buffer[BLOCK];
+    int size, nread=0, nwrite=0, tot=0, file;
     mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
     char *sha=NULL, recv_sha[41] = "";
 
     int columns=0;
-   
+
     struct timeval start;
     struct timeval stop;
     double difftime=0;
@@ -169,23 +169,23 @@ bool pullfile(const char *filename, unsigned int *sock)
 
     gettimeofday(&start,NULL);
 
-    while(1) 
-    { 
-	    memset(buffer, 0, BLOCK); 
-	    if ((nread=read(*sock, buffer, BLOCK)) < 0) 
+    while(1)
+    {
+	    memset(buffer, 0, BLOCK);
+	    if ((nread=read(*sock, buffer, BLOCK)) < 0)
         {
-		    my_perror("read()",0); 
+		    my_perror("read()",0);
             return false;
-        }	    
-        if ((nwrite=write(file, buffer, nread)) < 0 ) 
-		    my_perror(" write()",0); 
+        }	
+        if ((nwrite=write(file, buffer, nread)) < 0 )
+		    my_perror(" write()",0);
 	    tot+=nread;
 
         if(columns > 0)
             stepProgressBar(tot,10,size);
 
-	    if (tot == size) 
-		    break;  
+	    if (tot == size)
+		    break;
     }
 
     gettimeofday(&stop,NULL);
@@ -211,7 +211,7 @@ bool pullfile(const char *filename, unsigned int *sock)
 
     if(sha)
         free(sha);
-        
+
     close(file);
     return true;
 }

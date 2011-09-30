@@ -1,18 +1,18 @@
 #include "list.h"
 
-list *init_list () 
+list *init_list()
 {
     list* l = (list *) malloc (sizeof (list));
     l->head = l->tail = NULL;
     return l;
 }
 
-void free_list (list* l) 
+void free_list(list* l)
 {
     elem* cur = l->head;
     elem* next = NULL;
 
-    while (cur) 
+    while (cur)
     {
         next = cur->next;
         free (cur);
@@ -21,7 +21,7 @@ void free_list (list* l)
     free (l);
 }
 
-void insert_after (list* l, elem* prev, void *p) 
+void insert_after(list* l, elem* prev, void *p)
 {
     elem* next = prev ? prev->next : l->head;
 
@@ -38,7 +38,7 @@ void insert_after (list* l, elem* prev, void *p)
         prev == NULL ? l->head = newnode : 0 ;
 }
 
-void insert_before (list* l, elem* next, void *p) 
+void insert_before(list* l, elem* next, void *p)
 {
     elem* prev = next ? next->prev : l->tail;
 
@@ -55,17 +55,17 @@ void insert_before (list* l, elem* next, void *p)
         next == NULL ? l->tail = newnode : 0 ;
 }
 
-void insert_front (list* l, void *p) 
+void insert_front(list* l, void *p)
 {
     insert_after (l, NULL, p);
 }
 
-void insert_back (list* l, void *p) 
+void insert_back(list* l, void *p)
 {
     insert_before (l, NULL, p);
 }
 
-void delete_from (list *l, elem *node) 
+void delete_from(list *l, elem *node)
 {
     elem* prev = node->prev;
     elem* next = node->next;

@@ -31,7 +31,7 @@ src/client/client.o: src/client/client.c src/client/client.h \
  src/client/../shared/utility.h /usr/include/unistd.h \
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/getopt.h \
- src/client/../shared/version.h
+ src/client/../shared/../../config.h
 
 src/client/client.h:
 
@@ -163,4 +163,4 @@ src/client/../shared/utility.h:
 
 /usr/include/getopt.h:
 
-src/client/../shared/version.h:
+src/client/../shared/../../config.h:

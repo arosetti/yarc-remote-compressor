@@ -23,7 +23,7 @@ src/shared/utility.o: src/shared/utility.c src/shared/utility.h \
  /usr/include/errno.h /usr/include/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- src/shared/version.h
+ src/shared/../../config.h
 
 src/shared/utility.h:
 
@@ -121,4 +121,4 @@ src/shared/utility.h:
 
 /usr/include/asm-generic/errno-base.h:
 
-src/shared/version.h:
+src/shared/../../config.h:

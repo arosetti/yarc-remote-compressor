@@ -29,7 +29,7 @@ src/shared/command.o: src/shared/command.c src/shared/command.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  src/shared/utility.h /usr/include/unistd.h /usr/include/bits/posix_opt.h \
  /usr/include/bits/environments.h /usr/include/bits/confname.h \
- /usr/include/getopt.h src/shared/version.h
+ /usr/include/getopt.h src/shared/../../config.h
 
 src/shared/command.h:
 
@@ -159,4 +159,4 @@ src/shared/utility.h:
 
 /usr/include/getopt.h:
 
-src/shared/version.h:
+src/shared/../../config.h:

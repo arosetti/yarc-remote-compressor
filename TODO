@@ -1,0 +1,3 @@
+fixare i bof sscanf
+sostituire sha1.c sha1.h con le funzioni di openssl
+

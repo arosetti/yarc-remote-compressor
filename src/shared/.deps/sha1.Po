@@ -1,0 +1,3 @@
+src/shared/sha1.o: src/shared/sha1.c src/shared/sha1.h
+
+src/shared/sha1.h:

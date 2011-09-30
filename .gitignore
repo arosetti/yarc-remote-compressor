@@ -19,3 +19,5 @@ Makefile.in
 INSTALL
 src/*.spw
 *.tar.*
+client
+server

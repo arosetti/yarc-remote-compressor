@@ -14,6 +14,9 @@
 
 #define HLEN 3
 #define MSGSIZE 1024
+#define HAS_PARAM 1
+#define NO_PARAM  0
+
 
 typedef enum commandtype
 {
@@ -22,6 +25,7 @@ typedef enum commandtype
     CMD_HELP,
     CMD_CONFIGURE_COMPRESSOR,
     CMD_CONFIGURE_NAME,
+    CMD_CONFIGURE_CRYPT,
     CMD_SHOW_CONFIGURATION,
     CMD_SEND,
     CMD_COMPRESS,

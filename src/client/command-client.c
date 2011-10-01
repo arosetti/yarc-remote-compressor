@@ -6,6 +6,7 @@ static command handled_cmd[] =
 {CMD_QUIT,                 "quit",                 0, quit},
 {CMD_CONFIGURE_COMPRESSOR, "configure-compressor", 1, configureCompressor},
 {CMD_CONFIGURE_NAME,       "configure-name",       1, configureName},
+{CMD_CONFIGURE_CRYPT,      "configure-crypt",      0, dummy},
 {CMD_SHOW_CONFIGURATION,   "show-configuration",   0, showConfiguration},
 {CMD_SEND,                 "send",                 1, upload},
 {CMD_COMPRESS,             "compress",             1, compress},

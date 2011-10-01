@@ -5,6 +5,7 @@ command handled_cmd[] =
     {CMD_HELP,                 "help",                 0, dummy,},
     {CMD_CONFIGURE_COMPRESSOR, "configure-compressor", 1, configureCompressor},
     {CMD_CONFIGURE_NAME,       "configure-name",       1, configureName},
+    {CMD_CONFIGURE_CRYPT,       "configure-crypt",     0, dummy},
     {CMD_SHOW_CONFIGURATION,   "show-configuration",   0, showConfiguration},
     {CMD_SEND,                 "send",                 1, download},
     {CMD_COMPRESS,             "compress",             0, compress},

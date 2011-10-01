@@ -1,5 +1,5 @@
 #include "command-server.h"
-#include "server.h"
+#include "socket-server.h"
 #include "thread.h"
 
 void loadArgs(int argc, char** argv, serverConfig *conf)

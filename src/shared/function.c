@@ -55,7 +55,7 @@ bool pushfile(const char *filename, unsigned int *sock)
 
     if ( (file = open(filename, O_RDONLY)) < 0)
     {
-        my_perror("open()",0);
+        perrorf("open()",0);
         sendCommand(CMD_ABORT, NULL, sock);
         free(sha);
         return false;
@@ -84,11 +84,11 @@ bool pushfile(const char *filename, unsigned int *sock)
 	    memset(buffer, 0, BLOCK);
 	    if ((nread=read(file, buffer, BLOCK)) < 0 )
         {
-		    my_perror("read()",0);
+		    perrorf("read()",0);
             return false;
 		}
         if ((nwrite=write(*sock, buffer, nread)) < 0)
-		    my_perror("write()",0);
+		    perrorf("write()",0);
 	    tot-=nwrite;
 
         if (columns > 0)
@@ -137,7 +137,7 @@ bool pullfile(const char *filename, unsigned int *sock)
         remove(filename);
         if ((file=open(filename, O_WRONLY | O_CREAT, mode))<0)
         {
-            my_perror("open()",0);
+            perrorf("open()",0);
             return false;
         }
     }
@@ -162,7 +162,7 @@ bool pullfile(const char *filename, unsigned int *sock)
     if (size<0)
     {
         if (remove(filename) < 0)
-            my_perror( "remove()",0);
+            perrorf( "remove()",0);
         close(file);
         return false;
     }
@@ -174,11 +174,11 @@ bool pullfile(const char *filename, unsigned int *sock)
 	    memset(buffer, 0, BLOCK);
 	    if ((nread=read(*sock, buffer, BLOCK)) < 0)
         {
-		    my_perror("read()",0);
+		    perrorf("read()",0);
             return false;
         }	
         if ((nwrite=write(file, buffer, nread)) < 0 )
-		    my_perror(" write()",0);
+		    perrorf(" write()",0);
 	    tot+=nread;
 
         if (columns > 0)

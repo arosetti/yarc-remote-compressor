@@ -1,23 +1,26 @@
 #include "utility.h"
 
-void my_perror(char *perror_str, bool die)
+void perrorf(const char *fmt, ...)
 {
-    char msg[256]="* ";
+    char buffer[BSIZE];
+    int ret;
+    va_list ap;
+    char msg[BSIZE]="* ";
 
-    if (errno == 0)
+    if (!errno)
         return;
 
-    if (strlen(perror_str) > 128)
-        return;
+    va_start(ap, fmt);
+    ret = vsnprintf(buffer, BSIZE, fmt, ap);
+    if (ret)
+        perrorf("vsnprintf");
+    va_end(ap);
 
-    strcat(msg, perror_str);
-    strcat(msg, " ");
+    if (strlen(buffer) > (BSIZE-3))
+       return;
 
-
+    strcat(msg, buffer);
     perror(msg);
-
-    if (die)
-        exit(1);
 }
 
 void *my_malloc(int size)
@@ -25,12 +28,14 @@ void *my_malloc(int size)
     void *p = malloc(size);
 
     if (!p)
-        my_perror("malloc()",1);
-
+    {
+        perrorf("malloc()");
+        return 0;
+    }
     return p;
 }
 
-void cleanTailSpaces(char *s) /* ORRIILE */
+void cleanTailSpaces(char *s) /* HORROR */
 {
     int i;
 

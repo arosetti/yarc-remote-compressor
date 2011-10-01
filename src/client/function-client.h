@@ -1,7 +1,7 @@
 #ifndef FUNCTION_CLIENT_H
 #define FUNCTION_CLIENT_H
 
-#include "client.h"
+#include "socket-client.h"
 #include "../shared/function.h"
 
 bool help(char *, void *);

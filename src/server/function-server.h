@@ -1,7 +1,7 @@
 #ifndef FUNCTION_SERVER_H
 #define FUNCTION_SERVER_H
 
-#include "server.h"
+#include "socket-server.h"
 #include "archive.h"
 #include "../shared/command.h"
 #include "../shared/function.h"

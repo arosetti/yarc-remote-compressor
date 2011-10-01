@@ -20,7 +20,7 @@ bool sendCommand(int type, char *param, unsigned int *sock)
 
     if ( (ret = send(*sock, p, len, 0)) < 0 )
     {
-        my_perror("send()",0);
+        perrorf("send()");
         free(p);
         close(*sock);
         return false;
@@ -45,7 +45,7 @@ int recvCommand(char *param, unsigned int *sock)
 
     if ( (ret=recv(*sock, header, HLEN, 0)) < 0 )
     {
-        my_perror("recv()",0);
+        perrorf("recv()");
         close(*sock);
         return 0;
     }
@@ -62,7 +62,7 @@ int recvCommand(char *param, unsigned int *sock)
 
         if ( (ret=recv(*sock, buffer, length, 0)) < 0 )
         {
-            my_perror("recv()",0);
+            perrorf("recv()",0);
             close(*sock);
             free(buffer);
             return 0;

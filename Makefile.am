@@ -7,7 +7,7 @@ client_SOURCES = src/shared/function.h src/shared/function.c   \
 		  src/shared/file.c src/shared/file.h \
 		  src/shared/utility.c src/shared/utility.h \
                   src/shared/time.c src/shared/time.h \
-                  src/client/client.c src/client/client.h \
+                  src/client/socket-client.c src/client/socket-client.h \
 		  src/client/command-client.c src/client/command-client.h \
 		  src/client/function-client.c src/client/function-client.h \
                   src/client/main.c
@@ -17,11 +17,11 @@ server_SOURCES = src/shared/function.h src/shared/function.c   \
 		  src/shared/file.c src/shared/file.h \
 		  src/shared/utility.c src/shared/utility.h \
                   src/shared/time.c src/shared/time.h \
-                  src/server/server.c src/client/server.h \
+                  src/server/socket-server.c src/client/socket-server.h \
 		  src/server/command-server.c src/server/command-server.h \
 		  src/server/function-server.c src/server/function-server.h \
 	          src/server/thread.c src/server/tread.h \
-	          src/server/list.c src/server/list.h \
+	          src/shared/list.c src/shared/list.h \
 	          src/server/archive.c src/server/archive.h \
                   src/server/main.c
 

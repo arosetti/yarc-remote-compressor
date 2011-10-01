@@ -160,12 +160,12 @@ char *shaDigest(const char *filename)
 {
     SHA256_CTX context;
     unsigned char digest[SHA256_DIGEST_LENGTH], *digest_ret;
-    int fd,i,nread;
+    int fd, nread;
     char buffer[1024];
 
     if ((fd=open(filename, O_RDONLY)) < 0)
     {
-        my_perror("open()",0);
+        perrorf("open()",0);
         return 0;
     }
 
@@ -181,9 +181,9 @@ char *shaDigest(const char *filename)
                 filename);
 
     digest_ret = (unsigned char*) my_malloc(sizeof(unsigned char) * SHA256_DIGEST_LENGTH);
-    strcpy(digest, digest_ret);
+    strcpy((char *) digest, (char *) digest_ret);
 
-    return digest_ret;
+    return (char*) digest_ret;
 }
 
 void printFileInfo(const char *filename,int size,const char *sha)

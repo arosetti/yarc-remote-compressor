@@ -1,6 +1,6 @@
 src/server/function-server.o: src/server/function-server.c \
- src/server/function-server.h src/server/server.h /usr/include/pthread.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
+ src/server/function-server.h src/server/socket-server.h \
+ /usr/include/pthread.h /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
  /usr/include/gnu/stubs-64.h /usr/include/endian.h \
  /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
@@ -17,10 +17,9 @@ src/server/function-server.o: src/server/function-server.c \
  /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h /usr/include/stdlib.h \
- /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
- /usr/include/alloca.h /usr/include/string.h /usr/include/bits/string.h \
- /usr/include/bits/string2.h /usr/include/unistd.h \
+ /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/alloca.h \
+ /usr/include/string.h /usr/include/unistd.h \
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/getopt.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdbool.h \
@@ -36,7 +35,7 @@ src/server/function-server.o: src/server/function-server.c \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h /usr/include/bits/in.h \
  /usr/include/arpa/inet.h src/server/../shared/utility.h \
- src/server/list.h /usr/include/malloc.h src/server/archive.h \
+ src/server/../shared/list.h /usr/include/malloc.h src/server/archive.h \
  /usr/include/sys/stat.h /usr/include/bits/stat.h /usr/include/fcntl.h \
  /usr/include/bits/fcntl.h /usr/include/archive.h /usr/include/inttypes.h \
  /usr/include/archive_entry.h /usr/include/dirent.h \
@@ -52,7 +51,7 @@ src/server/function-server.o: src/server/function-server.c \
 
 src/server/function-server.h:
 
-src/server/server.h:
+src/server/socket-server.h:
 
 /usr/include/pthread.h:
 
@@ -122,8 +121,6 @@ src/server/../shared/utility.h:
 
 /usr/include/bits/sys_errlist.h:
 
-/usr/include/bits/stdio.h:
-
 /usr/include/stdlib.h:
 
 /usr/include/bits/waitflags.h:
@@ -133,10 +130,6 @@ src/server/../shared/utility.h:
 /usr/include/alloca.h:
 
 /usr/include/string.h:
-
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
 
 /usr/include/unistd.h:
 
@@ -198,7 +191,7 @@ src/server/../shared/command.h:
 
 src/server/../shared/utility.h:
 
-src/server/list.h:
+src/server/../shared/list.h:
 
 /usr/include/malloc.h:
 

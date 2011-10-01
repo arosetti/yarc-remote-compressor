@@ -1,5 +1,5 @@
 src/client/function-client.o: src/client/function-client.c \
- src/client/function-client.h src/client/client.h \
+ src/client/function-client.h src/client/socket-client.h \
  src/client/../shared/command.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdbool.h \
  /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
@@ -17,9 +17,8 @@ src/client/function-client.o: src/client/function-client.c \
  /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h /usr/include/string.h /usr/include/xlocale.h \
- /usr/include/bits/string.h /usr/include/bits/string2.h \
- /usr/include/sys/socket.h /usr/include/sys/uio.h /usr/include/bits/uio.h \
+ /usr/include/string.h /usr/include/xlocale.h /usr/include/sys/socket.h \
+ /usr/include/sys/uio.h /usr/include/bits/uio.h \
  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
  /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
  /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
@@ -43,7 +42,7 @@ src/client/function-client.o: src/client/function-client.c \
 
 src/client/function-client.h:
 
-src/client/client.h:
+src/client/socket-client.h:
 
 src/client/../shared/command.h:
 
@@ -109,15 +108,9 @@ src/client/../shared/command.h:
 
 /usr/include/bits/sys_errlist.h:
 
-/usr/include/bits/stdio.h:
-
 /usr/include/string.h:
 
 /usr/include/xlocale.h:
-
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
 
 /usr/include/sys/socket.h:
 

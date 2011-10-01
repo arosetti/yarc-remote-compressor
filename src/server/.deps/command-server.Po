@@ -16,9 +16,8 @@ src/server/command-server.o: src/server/command-server.c \
  /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h /usr/include/string.h /usr/include/xlocale.h \
- /usr/include/bits/string.h /usr/include/bits/string2.h \
- /usr/include/sys/socket.h /usr/include/sys/uio.h /usr/include/bits/uio.h \
+ /usr/include/string.h /usr/include/xlocale.h /usr/include/sys/socket.h \
+ /usr/include/sys/uio.h /usr/include/bits/uio.h \
  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
  /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
  /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
@@ -32,16 +31,16 @@ src/server/command-server.o: src/server/command-server.c \
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/getopt.h \
  src/server/../shared/../../config.h src/server/function-server.h \
- src/server/server.h /usr/include/pthread.h /usr/include/sched.h \
+ src/server/socket-server.h /usr/include/pthread.h /usr/include/sched.h \
  /usr/include/bits/sched.h /usr/include/bits/setjmp.h \
  /usr/include/semaphore.h /usr/include/bits/semaphore.h \
- src/server/../shared/utility.h src/server/list.h /usr/include/malloc.h \
- src/server/archive.h /usr/include/sys/stat.h /usr/include/bits/stat.h \
- /usr/include/fcntl.h /usr/include/bits/fcntl.h /usr/include/archive.h \
- /usr/include/inttypes.h /usr/include/archive_entry.h \
- /usr/include/dirent.h /usr/include/bits/dirent.h \
- /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h \
- /usr/include/linux/limits.h \
+ src/server/../shared/utility.h src/server/../shared/list.h \
+ /usr/include/malloc.h src/server/archive.h /usr/include/sys/stat.h \
+ /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+ /usr/include/archive.h /usr/include/inttypes.h \
+ /usr/include/archive_entry.h /usr/include/dirent.h \
+ /usr/include/bits/dirent.h /usr/include/bits/posix1_lim.h \
+ /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed/limits.h \
  /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed/syslimits.h \
  /usr/include/limits.h /usr/include/bits/posix2_lim.h \
@@ -116,15 +115,9 @@ src/server/../shared/command.h:
 
 /usr/include/bits/sys_errlist.h:
 
-/usr/include/bits/stdio.h:
-
 /usr/include/string.h:
 
 /usr/include/xlocale.h:
-
-/usr/include/bits/string.h:
-
-/usr/include/bits/string2.h:
 
 /usr/include/sys/socket.h:
 
@@ -184,7 +177,7 @@ src/server/../shared/../../config.h:
 
 src/server/function-server.h:
 
-src/server/server.h:
+src/server/socket-server.h:
 
 /usr/include/pthread.h:
 
@@ -200,7 +193,7 @@ src/server/server.h:
 
 src/server/../shared/utility.h:
 
-src/server/list.h:
+src/server/../shared/list.h:
 
 /usr/include/malloc.h:
 

@@ -1,4 +1,4 @@
-#include "client.h"
+#include "socket-client.h"
 #include "command-client.h"
 #include "../shared/utility.h"
 

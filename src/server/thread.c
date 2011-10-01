@@ -42,7 +42,7 @@ void initPool(serverConfig *s)
     int i;
 
     if ( sem_init(&s->lsem, 0, 1) < 0 )
-        my_perror("sem_init()",1);
+        perrorf("sem_init()");
 
     for (i=0; i<POOL_SIZE; i++)
         initThread(s);
@@ -60,10 +60,10 @@ void initSession(clientSlot *c)
 
     sprintf(c->dir, "%u", (unsigned int)pthread_self());
     if ((c->fd_dir=mkdir(c->dir, 0755)) < 0 )
-        my_perror("mkdir()",0);
+        perrorf("mkdir()");
 
     if (opendir(c->dir) == NULL)
-        my_perror("opendir()",1);
+        perrorf("opendir()");
 }
 
 void closeSession(clientSlot *c)

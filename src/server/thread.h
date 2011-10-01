@@ -9,7 +9,7 @@
 #define THREAD_H
 
 #include "command-server.h"
-#include "list.h"
+#include "../shared/list.h"
 
 void initThread(serverConfig *);
 void initPool(serverConfig *);

@@ -6,12 +6,15 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <stdarg.h>
 #include <errno.h>
 
 #include "../../config.h"
 
+#define BSIZE 1024
+
 void *my_malloc(int);
-void my_perror(char*, bool);
+void perrorf(const char*, ...);
 
 void cleanTailSpaces(char *);
 void stepProgressBar(long ,int ,long);

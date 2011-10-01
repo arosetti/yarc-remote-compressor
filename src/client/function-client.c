@@ -134,7 +134,7 @@ bool compress(char *param, void *conf)
     strcat(archive,buffer);
     printf("* moving file \"%s\" to %s\n",buffer,archive);
     if (rename(buffer,archive)<0)
-        my_perror("rename()",0);
+        perrorf("rename()");
 
     return true;
 }
@@ -189,7 +189,7 @@ bool quit(char *param, void *conf)
 {
     clientConfig *c=(clientConfig*)conf;
     if (close(c->sock) < 0)
-        my_perror("close()",1);
+        perrorf("close()");
     else
         printf("* socket closed, bye...\n");
 

@@ -1,5 +1,5 @@
 AC_PREREQ(2.61)
-AC_INIT([remote-compressor], [0.9.9])
+AC_INIT([remote-compressor], [0.10.0])
 AM_PROG_CC_C_O
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall foreign])

@@ -20,44 +20,35 @@ static command handled_cmd[] =
 
 void commandLoop(clientConfig *c)
 {
-    char buffer[MSGSIZE+1];
-    char *name=0,*param=0;
+    char buffer[MSGSIZE+1], name[MSGSIZE], param[MSGSIZE];
 
     printf("\n");
 
     while (1)
     {
-        strcpy(buffer,"");
         printf("> ");
-        scanf("%1024[^\t\n]",buffer);
+        fflush(stdout);
+        fgets(buffer, sizeof(buffer), stdin);
+
+        if (strlen(buffer) > 0 && buffer[strlen(buffer)-1] == '\n')
+            buffer[strlen(buffer)-1] = '\0';
+
         if (strlen(buffer) < MSGSIZE)
         {
-            name = (char*) my_malloc(sizeof(char) * MSGSIZE);
-            param = (char*) my_malloc(sizeof(char) * MSGSIZE);
-
             strcpy(name,"");
             strcpy(param,"");
-            sscanf(buffer,"%s %[^\t\n]",name,param);
+            sscanf(buffer, "%s %[^\t\n]", name, param);
             cleanTailSpaces(param);
 
-            if (strlen(param) == 0)
-            {
-                free(param);
-                param=NULL;
-            }
-            executeCommand(name,param,c);
+            if (!strlen(param))
+                executeCommand(name, NULL, c);
+            else
+                executeCommand(name, param, c);
         }
         else
             printf("Command is too long can't parse this.\n");
 
         printf("\n");
-
-        if (name)
-           free(name);
-        if (param)
-           free(param);
-
-        while (!getchar());
     }
 }
 

@@ -1,5 +1,6 @@
 *.o
 *~
+*.Po
 *.patch
 *.diff
 autom4te.cache/*
